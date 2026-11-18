@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Film</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1 th:text="${film.id == null} ? 'Nouveau film' : 'Modifier le film'">Film</h1>
+
+<form th:action="@{/films}" th:object="${film}" method="post">
+  <input type="hidden" th:field="*{id}">
+  <p>Titre : <input type="text" th:field="*{titre}" required></p>
+  <p>Annee : <input type="number" th:field="*{annee}"></p>
+  <p>Duree (min) : <input type="number" th:field="*{duree}"></p>
+  <label>Genre :
+    <select th:field="*{genre}">
+      <option th:each="g : ${T(fr.lycee.cinetheque.entity.Genre).values()}"
+              th:value="${g}" th:text="${g}"></option>
+    </select>
+  </label>
+  <p>Realisateur :
+    <select name="realisateurId">
+      <option value="">-- Aucun --</option>
+      <option th:each="r : ${realisateurs}"
+              th:value="${r.id}"
+              th:text="${r.prenom + ' ' + r.nom}"
+              th:selected="${film.realisateur != null
+                                       and r.id == film.realisateur.id}"></option>
+    </select>
+  </p>
+  <button type="submit">Enregistrer</button>
+  <a th:href="@{/films}">Annuler</a>
+</form>
+</body>
+</html>

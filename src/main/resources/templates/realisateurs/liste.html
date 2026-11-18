@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Realisateurs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>Realisateurs</h1>
+<p>
+    <a th:href="@{/realisateurs/nouveau}">+ Ajouter un realisateur</a> |
+    <a th:href="@{/films}">Aller au catalogue de films</a>
+</p>
+<table>
+    <tr><th>Prenom</th><th>Nom</th><th>Nationalite</th></tr>
+    <tr th:each="r : ${realisateurs}">
+        <td th:text="${r.prenom}"></td>
+        <td th:text="${r.nom}"></td>
+        <td th:text="${r.nationalite}"></td>
+    </tr>
+</table>
+</body>
+</html>
